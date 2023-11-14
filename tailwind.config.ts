@@ -8,10 +8,31 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      colors: {
+        snow: "#fff6f7",
+        white: "#fff",
+        darkslateblue: {
+          "100": "#86689d",
+          "200": "#6c4889",
+          "300": "#311041",
+        },
+        midnightblue: "#471360",
+        slategray: "#796682",
+      },
+      spacing: {},
+      fontFamily: {
+        poppins: "Poppins",
+      },
+      borderRadius: {
+        "3xs": "10px",
+        xl: "20px",
+      },
+      gridTemplateColumns: {
+        'customA' : '25% 75%',
+        'customB' : '76% 24%'
+      },
+      gridTemplateRows: {
+        'diffRows' : '15% 85%'
       },
     },
   },
