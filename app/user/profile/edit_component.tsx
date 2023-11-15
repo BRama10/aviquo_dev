@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { mapDimensions } from '../../../utils'
+import type { PutBlobResult } from '@vercel/blob';
+import axios from 'axios'
 
 export interface EditProps {
     username: string;
@@ -9,10 +11,11 @@ export interface EditProps {
     bio: string;
     num_followers: number;
     num_following: number;
+    image: PutBlobResult | null;
     handleUpload: () => void;
     handleDelete: () => void;
     handleCancel: () => void;
-    handleSave: (obj:any) => void;
+    handleSave: (obj: any) => void;
 }
 
 const Page: React.FC<EditProps> = ({
@@ -26,7 +29,8 @@ const Page: React.FC<EditProps> = ({
     handleCancel,
     handleDelete,
     handleSave,
-    handleUpload
+    handleUpload, 
+    image
 }) => {
     useEffect(() => {
         const useMD = () => mapDimensions('wrapper');
@@ -40,50 +44,90 @@ const Page: React.FC<EditProps> = ({
         };
     }, []);
 
+    var newBlob;
+
     const [localUsername, setLocalUsername] = useState(username);
     const [localFirstName, setLocalFirstName] = useState(first_name);
     const [localLastName, setLocalLastName] = useState(last_name);
     const [localEmail, setLocalEmail] = useState(email);
     const [localBio, setLocalBio] = useState(bio);
 
-    const handleUsernameChange = (e:any) => {
+    const inputFileRef = useRef<HTMLInputElement>(null);
+    const [blob, setBlob] = useState<PutBlobResult | null>(image);
+
+    // useEffect(() => {
+    //     console.log('Blob state updated:', blob);
+    // }, [blob]);
+
+    const handleUsernameChange = (e: any) => {
         setLocalUsername(e.target.value);
     };
 
-    const handleFirstNameChange = (e:any) => {
+    const handleFirstNameChange = (e: any) => {
         setLocalFirstName(e.target.value);
     };
 
-    const handleLastNameChange = (e:any) => {
+    const handleLastNameChange = (e: any) => {
         setLocalLastName(e.target.value);
     };
 
-    const handleEmailChange = (e:any) => {
+    const handleEmailChange = (e: any) => {
         setLocalEmail(e.target.value);
     };
 
-    const handleBioChange = (e:any) => {
+    const handleBioChange = (e: any) => {
         setLocalBio(e.target.value);
     };
 
-    const handleLocalSave = () => {
-        const userData = {
-            username : localUsername,
-            first_name : localFirstName,
-            last_name : localLastName,
-            email : localEmail,
-            bio : localBio,
+    const handleAvatarButtonClick = () => {
+        if (inputFileRef.current) {
+          inputFileRef.current.click();
         }
-        console.log(userData);
-        handleSave({...userData});
+      };
+
+    const handleLocalSave = async () => {
+        const userData = {
+            username: localUsername,
+            first_name: localFirstName,
+            last_name: localLastName,
+            email: localEmail,
+            bio: localBio,
+        }
+        // console.log(userData);
+        // const form = document.getElementById('avatarSelector') as HTMLFormElement | null;
+        
+        // if (form) {
+        //     form.dispatchEvent(new Event('submit', { cancelable: true }));
+        // }
+        
+        if (!inputFileRef.current?.files) {
+            throw new Error('No file selected');
+        }
+
+        const file = inputFileRef.current.files[0];
+
+        if (file) {
+            const response = await axios.post(`/api/upload?filename=${file.name}`, file);
+            newBlob = response.data as PutBlobResult;
+
+            setBlob(newBlob);
+        } else {
+            newBlob = blob;
+        }
+        
+        // console.log(blob);
+        
+        handleSave({ ...userData, image: newBlob });
     }
 
+
     return (
+
         <main id="wrapper" className={`min-h-screen h-full w-full bg-snow text-midnightblue font-poppins flex flex-col items-center`}>
             <div className="bg-snow shadow-[0px_-10px_32px_rgba(0,_0,_0,_0.25)] w-full h-[8%] self-start" />
             <div className="grid grid-cols-customC w-full h-full pt-[10%]">
                 <div className="flex flex-col items-center">
-                    <img className="w-[15%] h-auto object-cover rounded" alt="" src="/image-11@2x.png" />
+                    <img className="w-[15%] h-auto object-cover rounded" alt="" src={blob ? blob.url : "https://vwrzsdm8t0uhsvhz.public.blob.vercel-storage.com/image-11@2x-kJ47GKgsfmMLUbeQDquWCR5h0tYKiq.png"} />
                     <p className="text-2xl md:text-3xl font-bold pt-[2%]">@{username}</p>
                     <p className="text-xl md:text-2xl font-semibold pt-[0.5%]">{first_name}</p>
                     <div className="pt-[2%] flex flex-row items-center justify-start gap-[10px] text-center text-darkslateblue-300 text-lg md:text-2xl font-weight:700">
@@ -97,9 +141,14 @@ const Page: React.FC<EditProps> = ({
                             <span> following</span>
                         </div>
                     </div>
-                    <button className="mt-[3%] rounded-3xs bg-darkslateblue-100 w-[350.48px] h-[55px] font-bold text-center text-white">
+                    <button onClick={handleAvatarButtonClick} className="mt-[3%] rounded-3xs bg-darkslateblue-100 w-[350.48px] h-[55px] font-bold text-center text-white">
                         Upload Avatar
                     </button>
+                    <input 
+                        className="hidden"
+                        type="file"
+                    // onChange={setInput}
+                    ref={inputFileRef}></input>
                     <button className="mt-[4%] rounded-3xs border-2 text-darkslateblue-100 w-[350.48px] h-[55px] font-bold text-center border-darkslateblue-100">
                         Delete Avatar
                     </button>
@@ -114,7 +163,7 @@ const Page: React.FC<EditProps> = ({
                         <div className="w-full h-full flex flex-row gap-x-5">
                             <div>
                                 <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">First Name</div>
-                                <input type="text" value={localFirstName} onChange={handleFirstNameChange}  className="text-3xl pl-4 rounded-3xs box-border w-full h-auto border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
+                                <input type="text" value={localFirstName} onChange={handleFirstNameChange} className="text-3xl pl-4 rounded-3xs box-border w-full h-auto border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
                             </div>
                             <div>
                                 <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">Last Name</div>
@@ -145,6 +194,28 @@ const Page: React.FC<EditProps> = ({
 
                 </div>
             </div>
+            {/* <form id='avatarSelector'
+                className='none'
+                onSubmit={async (event) => {
+                    event.preventDefault();
+                    console.log('hey')
+                    
+                    if (!inputFileRef.current?.files) {
+                        throw new Error('No file selected');
+                    }
+
+                    const file = inputFileRef.current.files[0];
+
+                    const response = await axios.post(`/api/upload?filename=${file.name}`, file);
+                    // console.log(response);
+                    const newBlob = response.data as PutBlobResult;
+
+                    setBlob(newBlob);
+                }}
+            >
+                <input name="file" ref={inputFileRef} type="file" required /> */}
+                {/* <button type="submit">Upload</button> */}
+            {/* </form> */}
         </main>
     )
 };

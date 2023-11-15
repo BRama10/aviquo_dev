@@ -18,6 +18,7 @@ const ProfilePage = () => {
         num_followers:29,
         num_following:29,
         date_joined:'October 20th, 2023',
+        image: null,
         handle_edit: () => {
             setIsMain(false);
         },
@@ -28,9 +29,11 @@ const ProfilePage = () => {
                 first_name: obj.first_name,
                 last_name: obj.last_name,
                 email: obj.email,
-                bio: obj.bio
+                bio: obj.bio,
+                image: obj.image
               }));
-            console.log(obj);
+            
+            console.log(obj.image)
             setIsMain(true);
         },
         handleDelete: () => {
@@ -57,6 +60,7 @@ const ProfilePage = () => {
             num_followers={data.num_followers}
             num_following={data.num_following}
             date_joined={data.date_joined}
+            image={data.image}
             handleEdit={data.handle_edit}
         />) : (
             <EditView
@@ -66,6 +70,7 @@ const ProfilePage = () => {
             bio={data.bio}
             num_followers={data.num_followers}
             num_following={data.num_following}
+            image={data.image}
             // date_joined={data.date_joined}
             // handleEdit={data.handle_edit}
             handleCancel={data.handleCancel}
