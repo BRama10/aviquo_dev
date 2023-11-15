@@ -24,7 +24,7 @@ const Page:React.FC<ProfileProps> = ({
     useEffect(() => {
         const useMD = () => mapDimensions('wrapper');
 
-        useMD();
+        // useMD();
         window.addEventListener('resize', useMD);
 
 

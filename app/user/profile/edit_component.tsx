@@ -5,7 +5,7 @@ const Page = () => {
     useEffect(() => {
         const useMD = () => mapDimensions('wrapper');
 
-        useMD();
+        // useMD();
         window.addEventListener('resize', useMD);
 
 
