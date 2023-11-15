@@ -12,10 +12,12 @@ const config: Config = {
         snow: "#fff6f7",
         white: "#fff",
         darkslateblue: {
-          "100": "#86689d",
-          "200": "#6c4889",
+          "100": "#6c4889",
+          "200": "#7c3c75",
           "300": "#311041",
         },
+
+        
         midnightblue: "#471360",
         slategray: "#796682",
       },
@@ -29,7 +31,8 @@ const config: Config = {
       },
       gridTemplateColumns: {
         'customA' : '25% 75%',
-        'customB' : '76% 24%'
+        'customB' : '76% 24%',
+        'customC' : '60% 5% 35%'
       },
       gridTemplateRows: {
         'diffRows' : '15% 85%'
