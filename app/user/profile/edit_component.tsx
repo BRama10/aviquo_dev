@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { mapDimensions } from '../../../utils'
 import type { PutBlobResult } from '@vercel/blob';
 import axios from 'axios'
+import Loader from "react-loader-spinner"; 
 
 export interface EditProps {
     username: string;
@@ -54,6 +55,7 @@ const Page: React.FC<EditProps> = ({
 
     const inputFileRef = useRef<HTMLInputElement>(null);
     const [blob, setBlob] = useState<PutBlobResult | null>(image);
+    const [isLoading, setIsLoading] = useState(false);
 
     // useEffect(() => {
     //     console.log('Blob state updated:', blob);
@@ -85,6 +87,22 @@ const Page: React.FC<EditProps> = ({
         }
       };
 
+    const handleLocalAvatarChange = async () => {
+        if (inputFileRef.current?.files) {
+            const file = inputFileRef.current.files[0];
+
+            if (file) {
+                const response = await axios.post(`/api/upload?filename=${file.name}`, file);
+                newBlob = response.data as PutBlobResult;
+                setBlob(newBlob);
+            } 
+        }
+    }
+
+    const handleDeleteButtonClick = () => {
+        setBlob(null);
+    }
+
     const handleLocalSave = async () => {
         const userData = {
             username: localUsername,
@@ -100,24 +118,11 @@ const Page: React.FC<EditProps> = ({
         //     form.dispatchEvent(new Event('submit', { cancelable: true }));
         // }
         
-        if (!inputFileRef.current?.files) {
-            throw new Error('No file selected');
-        }
-
-        const file = inputFileRef.current.files[0];
-
-        if (file) {
-            const response = await axios.post(`/api/upload?filename=${file.name}`, file);
-            newBlob = response.data as PutBlobResult;
-
-            setBlob(newBlob);
-        } else {
-            newBlob = blob;
-        }
+        
         
         // console.log(blob);
         
-        handleSave({ ...userData, image: newBlob });
+        handleSave({ ...userData, image: blob });
     }
 
 
@@ -148,8 +153,9 @@ const Page: React.FC<EditProps> = ({
                         className="hidden"
                         type="file"
                     // onChange={setInput}
-                    ref={inputFileRef}></input>
-                    <button className="mt-[4%] rounded-3xs border-2 text-darkslateblue-100 w-[350.48px] h-[55px] font-bold text-center border-darkslateblue-100">
+                    ref={inputFileRef}
+                    onChange={handleLocalAvatarChange}></input>
+                    <button onClick={handleDeleteButtonClick} className="mt-[4%] rounded-3xs border-2 text-darkslateblue-100 w-[350.48px] h-[55px] font-bold text-center border-darkslateblue-100">
                         Delete Avatar
                     </button>
                 </div>

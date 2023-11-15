@@ -5,6 +5,7 @@ import { mapDimensions } from '../../../utils'
 import Image from 'next/image'
 import Page, {ProfileProps} from './page_component';
 import EditView, {EditProps} from './edit_component';
+import styles from './profileStyles.module.css';
 
 
 
@@ -52,8 +53,8 @@ const ProfilePage = () => {
     const [isMain, setIsMain] = useState(true);
 
     return (
-        <>
-        {isMain ? (<Page
+        <div className={`${styles.transition_container}`}>
+        {isMain ? (<div className={`${styles.transition_slide}`}><Page
             username={data.username}
             first_name={data.first_name}
             bio={data.bio}
@@ -62,8 +63,8 @@ const ProfilePage = () => {
             date_joined={data.date_joined}
             image={data.image}
             handleEdit={data.handle_edit}
-        />) : (
-            <EditView
+        /></div>) : (
+            <div className={`${styles.transition_slide}`}><EditView
             username={data.username}
             first_name={data.first_name}
             last_name={data.last_name}
@@ -78,9 +79,9 @@ const ProfilePage = () => {
             handleSave={data.handleSave}
             handleDelete={data.handleDelete}
             email={data.email}
-            />
+            /></div>
         )}
-        </>
+        </div>
     )
     // return (
     //     <EditView />
