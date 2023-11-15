@@ -16,6 +16,6 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000/user/profile](http://localhost:3000/user/profile) with your browser to see the result.
 
 **Copyright (c) 2023 Aviquo, All Rights Reserved.**
