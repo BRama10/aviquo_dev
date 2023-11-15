@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { mapDimensions } from '../../../utils'
 import Image from 'next/image'
-import { Card } from './card'
+import { Card as PostCard }  from './post_card'
+import { Card as FollowingCard } from './following_card'
 
 export interface ProfileProps {
     username: string;
@@ -23,7 +24,7 @@ const Page:React.FC<ProfileProps> = ({
     useEffect(() => {
         const useMD = () => mapDimensions('wrapper');
 
-
+        useMD();
         window.addEventListener('resize', useMD);
 
 
@@ -60,15 +61,13 @@ const Page:React.FC<ProfileProps> = ({
                     </div>
                     <div className="text-base inline-block text-darkslateblue-300 text-center"><b>Joined {date_joined}</b></div>
                     <button className="rounded-3xs bg-darkslateblue-200 w-[60%] h-[45%] text-center font-semibold text-white">
-                        {/* <div className="transform lg:-translate-x-1/2 md:-translate-x-1/2 sm:-translate-x-1/2 font-semibold text-white text-center inline-block"> */}
-                            Edit Profile
-                        {/* </div> */}
+                        Edit Profile
                     </button>
 
                 </div>
             </div>
-            <Card />
-            <Card />
+            <PostCard />
+            <FollowingCard />
         </main>
     )
 }

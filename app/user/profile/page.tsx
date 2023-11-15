@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from 'react'
 import { mapDimensions } from '../../../utils'
 import Image from 'next/image'
-import { Card } from './card'
-import Page, {ProfileProps} from './page_component'
+import Page, {ProfileProps} from './page_component';
+import EditView from './edit_component';
 
 
 const ProfilePage = () => {
@@ -27,6 +27,9 @@ const ProfilePage = () => {
             date_joined={data.date_joined}
         />
     )
+    // return (
+    //     <EditView />
+    // )
 }
 
 export default ProfilePage
