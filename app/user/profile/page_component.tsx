@@ -11,6 +11,7 @@ export interface ProfileProps {
     num_followers: number;
     num_following: number;
     date_joined: string;
+    handleEdit: () => void;
 }
 
 const Page:React.FC<ProfileProps> = ({
@@ -19,7 +20,8 @@ const Page:React.FC<ProfileProps> = ({
     bio,
     num_followers,
     num_following,
-    date_joined
+    date_joined,
+    handleEdit
 }) => {
     useEffect(() => {
         const useMD = () => mapDimensions('wrapper');
@@ -60,7 +62,7 @@ const Page:React.FC<ProfileProps> = ({
                         </div>
                     </div>
                     <div className="text-base inline-block text-darkslateblue-300 text-center"><b>Joined {date_joined}</b></div>
-                    <button className="rounded-3xs bg-darkslateblue-200 w-[60%] h-[45%] text-center font-semibold text-white">
+                    <button className="rounded-3xs bg-darkslateblue-200 w-[60%] h-[45%] text-center font-semibold text-white" onClick={handleEdit}>
                         Edit Profile
                     </button>
 
