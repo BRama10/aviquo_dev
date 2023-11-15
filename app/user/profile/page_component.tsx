@@ -3,6 +3,7 @@ import { mapDimensions } from '../../../utils'
 import Image from 'next/image'
 import { Card as PostCard }  from './post_card'
 import { Card as FollowingCard } from './following_card'
+import type { PutBlobResult } from '@vercel/blob';
 
 export interface ProfileProps {
     username: string;
@@ -12,6 +13,7 @@ export interface ProfileProps {
     num_following: number;
     date_joined: string;
     handleEdit: () => void;
+    image: PutBlobResult | null;
 }
 
 const Page:React.FC<ProfileProps> = ({
@@ -21,7 +23,8 @@ const Page:React.FC<ProfileProps> = ({
     num_followers,
     num_following,
     date_joined,
-    handleEdit
+    handleEdit,
+    image
 }) => {
     useEffect(() => {
         const useMD = () => mapDimensions('wrapper');
@@ -41,7 +44,7 @@ const Page:React.FC<ProfileProps> = ({
             <div className="bg-snow shadow-[0px_-10px_32px_rgba(0,_0,_0,_0.25)] w-full h-[8%] self-start" />
             <div className="grid grid-cols-2 pt-[8%] gap-x-2 h-auto w-2/3 self-justify-center">
                 <div className="grid grid-cols-customA w-full h-full">
-                    <img alt="pfp_spot" src="/image-11@2x.png" className="w-full"></img>
+                    <img alt="pfp_spot" src={image ? image.url : "https://vwrzsdm8t0uhsvhz.public.blob.vercel-storage.com/image-11@2x-kJ47GKgsfmMLUbeQDquWCR5h0tYKiq.png"} className="w-full"></img>
                     <div className="flex flex-col pl-[5%]">
                         <p className="text-2xl md:text-3xl font-bold">@{username}</p>
                         <p className="text-xl md:text-2xl font-semibold">{first_name}</p>
