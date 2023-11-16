@@ -78,7 +78,7 @@ const ProfilePage = () => {
             handleUpload={data.handleUpload}
             handleSave={data.handleSave}
             handleDelete={data.handleDelete}
-            email={data.email}
+            // email={data.email}
             /></div>
         )}
         </div>
