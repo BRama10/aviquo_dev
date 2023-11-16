@@ -6,7 +6,7 @@ import Loader from "react-loader-spinner";
 
 export interface EditProps {
     username: string;
-    email: string;
+    // email: string;
     first_name: string;
     last_name: string;
     bio: string;
@@ -21,7 +21,7 @@ export interface EditProps {
 
 const Page: React.FC<EditProps> = ({
     username,
-    email,
+    // email,
     first_name,
     last_name,
     bio,
@@ -50,7 +50,7 @@ const Page: React.FC<EditProps> = ({
     const [localUsername, setLocalUsername] = useState(username);
     const [localFirstName, setLocalFirstName] = useState(first_name);
     const [localLastName, setLocalLastName] = useState(last_name);
-    const [localEmail, setLocalEmail] = useState(email);
+    // const [localEmail, setLocalEmail] = useState(email);
     const [localBio, setLocalBio] = useState(bio);
 
     const inputFileRef = useRef<HTMLInputElement>(null);
@@ -73,9 +73,9 @@ const Page: React.FC<EditProps> = ({
         setLocalLastName(e.target.value);
     };
 
-    const handleEmailChange = (e: any) => {
-        setLocalEmail(e.target.value);
-    };
+    // const handleEmailChange = (e: any) => {
+    //     setLocalEmail(e.target.value);
+    // };
 
     const handleBioChange = (e: any) => {
         setLocalBio(e.target.value);
@@ -108,7 +108,7 @@ const Page: React.FC<EditProps> = ({
             username: localUsername,
             first_name: localFirstName,
             last_name: localLastName,
-            email: localEmail,
+            // email: localEmail,
             bio: localBio,
         }
         // console.log(userData);
@@ -132,7 +132,7 @@ const Page: React.FC<EditProps> = ({
             <div className="bg-snow shadow-[0px_-10px_32px_rgba(0,_0,_0,_0.25)] w-full h-[8%] self-start" />
             <div className="grid grid-cols-customC w-full h-full pt-[10%]">
                 <div className="flex flex-col items-center">
-                    <img className="w-[15%] h-auto object-cover rounded" alt="" src={blob ? blob.url : "https://vwrzsdm8t0uhsvhz.public.blob.vercel-storage.com/image-11@2x-kJ47GKgsfmMLUbeQDquWCR5h0tYKiq.png"} />
+                    <img className="w-[15%] aspect-square object-cover rounded-full" alt="" src={blob ? blob.url : "https://vwrzsdm8t0uhsvhz.public.blob.vercel-storage.com/image-11@2x-kJ47GKgsfmMLUbeQDquWCR5h0tYKiq.png"} />
                     <p className="text-2xl md:text-3xl font-bold pt-[2%]">@{username}</p>
                     <p className="text-xl md:text-2xl font-semibold pt-[0.5%]">{first_name}</p>
                     <div className="pt-[2%] flex flex-row items-center justify-start gap-[10px] text-center text-darkslateblue-300 text-lg md:text-2xl font-weight:700">
@@ -159,32 +159,38 @@ const Page: React.FC<EditProps> = ({
                         Delete Avatar
                     </button>
                 </div>
-                <div className="box-border w-px h-[810.51px] border-r-[1px] border-solid border-darkslateblue-200 self-center"></div>
+                <div className="box-border w-px h-[90%] border-r-[1px] border-solid border-darkslateblue-200 self-center ml-[-140%]"></div>
                 <div className="flex flex-col items-start">
                     <div className="pb-[3%] w-[90%]">
                         <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">Username</div>
-                        <input type="text" value={localUsername} onChange={handleUsernameChange} className="text-3xl pl-4 rounded-3xs box-border w-full h-auto border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
+                        <input
+  type="text"
+  value={localUsername}
+  onChange={handleUsernameChange}
+  className="text-xl pl-4 text-center rounded-3xs box-border w-full h-[3rem] border-[1px] border-solid border-darkslateblue-200 bg-inherit"
+/>
+
                     </div>
                     <div className="pb-[3%] w-[90%]">
                         <div className="w-full h-full flex flex-row gap-x-5">
-                            <div>
+                            <div className="w-1/2">
                                 <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">First Name</div>
-                                <input type="text" value={localFirstName} onChange={handleFirstNameChange} className="text-3xl pl-4 rounded-3xs box-border w-full h-auto border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
-                            </div>
-                            <div>
+                                <input type="text" value={localFirstName} onChange={handleFirstNameChange} className="text-xl pl-4 text-center rounded-3xs box-border w-full h-[3rem] border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
+                            </div>  
+                            <div className="w-1/2">
                                 <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">Last Name</div>
-                                <input type="text" value={localLastName} onChange={handleLastNameChange} className="text-3xl pl-4 rounded-3xs box-border w-full h-auto border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
+                                <input type="text" value={localLastName} onChange={handleLastNameChange} className="text-xl pl-4 text-center rounded-3xs box-border w-full h-[3rem] border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
                             </div>
                         </div>
 
                     </div>
-                    <div className="pb-[3%] w-[90%]">
+                    {/* <div className="pb-[3%] w-[90%]">
                         <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">Email</div>
                         <input type="text" value={localEmail} onChange={handleEmailChange} className="text-3xl pl-4 rounded-3xs box-border w-full h-auto border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
-                    </div>
+                    </div> */}
                     <div className="pb-[3%] w-[90%]">
                         <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">Bio</div>
-                        <textarea value={localBio} onChange={handleBioChange} rows={6} className="text-xl pl-4 rounded-3xs box-border w-full h-auto border-[1px] border-solid border-darkslateblue-200 bg-inherit resize-none"></textarea>
+                        <textarea value={localBio} onChange={handleBioChange} rows={9} className="text-md pl-4 rounded-3xs box-border w-full h-auto border-[1px] border-solid border-darkslateblue-200 bg-inherit resize-none"></textarea>
                     </div>
 
                     <div className="pb-[3%] w-[90%] h-auto">
