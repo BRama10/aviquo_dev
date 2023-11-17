@@ -3,7 +3,7 @@ import { mapDimensions } from '../../../utils'
 import Image from 'next/image'
 import { Card as PostCard } from './post_card'
 import { Card as FollowingCard } from './following_card'
-import type { PutBlobResult } from '@vercel/blob';
+import type { PutBlobResult, HeadBlobResult } from '@vercel/blob';
 import { motion } from "framer-motion"
 
 export interface ProfileProps {
@@ -14,7 +14,7 @@ export interface ProfileProps {
     num_following: number;
     date_joined: string;
     handleEdit: () => void;
-    image: PutBlobResult | null;
+    image: PutBlobResult | HeadBlobResult | null;
 }
 
 const Page: React.FC<ProfileProps> = ({
@@ -41,7 +41,7 @@ const Page: React.FC<ProfileProps> = ({
     }, []);
 
     return (
-        <motion.div initial={{ x: 2000 }} animate={{ x: 0 }} transition={{ duration: 2 }}>
+        <motion.div initial={{ x: 2000 }} animate={{ x: 0 }} transition={{ duration: 1 }}>
             <main id="wrapper" className={`min-h-screen h-full w-full bg-snow text-midnightblue font-poppins flex flex-col items-center`}>
                 <div className="bg-snow shadow-[0px_-10px_32px_rgba(0,_0,_0,_0.25)] w-full h-[8%] self-start" />
                 <div className="grid grid-cols-2 pt-[8%] gap-x-2 h-auto w-2/3 self-justify-center">
