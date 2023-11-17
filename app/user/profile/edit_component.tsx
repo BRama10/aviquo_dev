@@ -3,6 +3,7 @@ import { mapDimensions } from '../../../utils'
 import type { PutBlobResult } from '@vercel/blob';
 import axios from 'axios'
 import { motion } from "framer-motion"
+import {CircularProgress} from "@nextui-org/react";
 
 
 export interface EditProps {
@@ -93,9 +94,11 @@ const Page: React.FC<EditProps> = ({
             const file = inputFileRef.current.files[0];
 
             if (file) {
+                setIsLoading(true)
                 const response = await axios.post(`/api/upload?filename=${file.name}`, file);
                 newBlob = response.data as PutBlobResult;
                 setBlob(newBlob);
+                setIsLoading(false);
             }
         }
     }
@@ -133,7 +136,8 @@ const Page: React.FC<EditProps> = ({
                 <div className="bg-snow shadow-[0px_-10px_32px_rgba(0,_0,_0,_0.25)] w-full h-[8%] self-start" />
                 <div className="grid grid-cols-customC w-full h-full pt-[10%]">
                     <div className="flex flex-col items-center">
-                        <img className="w-[15%] aspect-square object-cover rounded-full" alt="" src={blob ? blob.url : "https://vwrzsdm8t0uhsvhz.public.blob.vercel-storage.com/image-11@2x-kJ47GKgsfmMLUbeQDquWCR5h0tYKiq.png"} />
+                        { isLoading ? (<CircularProgress aria-label="Loading..." />) : (
+                        <img className="w-[15%] aspect-square object-cover rounded-full" alt="" src={blob ? blob.url : "https://vwrzsdm8t0uhsvhz.public.blob.vercel-storage.com/image-11@2x-kJ47GKgsfmMLUbeQDquWCR5h0tYKiq.png"} /> )}
                         <p className="text-2xl md:text-3xl font-bold pt-[2%]">@{username}</p>
                         <p className="text-xl md:text-2xl font-semibold pt-[0.5%]">{first_name}</p>
                         <div className="pt-[2%] flex flex-row items-center justify-start gap-[10px] text-center text-darkslateblue-300 text-lg md:text-2xl font-weight:700">
