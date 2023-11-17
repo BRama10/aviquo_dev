@@ -8,7 +8,6 @@ import EditView, {EditProps} from './edit_component';
 import styles from './profileStyles.module.css';
 
 
-
 const ProfilePage = () => {
     const [data, setData] = useState({
         username:"testing",
@@ -53,7 +52,7 @@ const ProfilePage = () => {
     const [isMain, setIsMain] = useState(true);
 
     return (
-        <div className={`${styles.transition_container}`}>
+        <>
         {isMain ? (<div className={`${styles.transition_slide}`}><Page
             username={data.username}
             first_name={data.first_name}
@@ -81,8 +80,8 @@ const ProfilePage = () => {
             // email={data.email}
             /></div>
         )}
-        </div>
-    )
+    </>)
+    
     // return (
     //     <EditView />
     // )
