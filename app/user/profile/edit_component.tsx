@@ -168,7 +168,7 @@ const Page: React.FC<EditProps> = ({
                                 type="text"
                                 value={localUsername}
                                 onChange={handleUsernameChange}
-                                className="text-xl pl-4 text-center rounded-3xs box-border w-full h-[3rem] border-[1px] border-solid border-darkslateblue-200 bg-inherit"
+                                className="text-xl pl-4 rounded-3xs box-border w-full h-[3rem] border-[1px] border-solid border-darkslateblue-200 bg-inherit"
                             />
 
                         </div>
@@ -176,11 +176,11 @@ const Page: React.FC<EditProps> = ({
                             <div className="w-full h-full flex flex-row gap-x-5">
                                 <div className="w-1/2">
                                     <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">First Name</div>
-                                    <input type="text" value={localFirstName} onChange={handleFirstNameChange} className="text-xl pl-4 text-center rounded-3xs box-border w-full h-[3rem] border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
+                                    <input type="text" value={localFirstName} onChange={handleFirstNameChange} className="text-xl pl-4 rounded-3xs box-border w-full h-[3rem] border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
                                 </div>
                                 <div className="w-1/2">
                                     <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">Last Name</div>
-                                    <input type="text" value={localLastName} onChange={handleLastNameChange} className="text-xl pl-4 text-center rounded-3xs box-border w-full h-[3rem] border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
+                                    <input type="text" value={localLastName} onChange={handleLastNameChange} className="text-xl pl-4 rounded-3xs box-border w-full h-[3rem] border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
                                 </div>
                             </div>
 
