@@ -26,3 +26,24 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json({status : 'fail'});
   }
 }
+
+export async function PUT(request: Request): Promise<NextResponse> {
+  const { searchParams } = new URL(request.url);
+  const email = searchParams.get('email');
+
+  if (request.body) {
+    const body = await request.json();
+    const result = await prisma.user.update({
+      where: {
+        email: email!,
+      },
+      data: {
+        ...body,
+        email: email,
+      }
+    })
+
+    return NextResponse.json({status : 'success', result});
+  }
+  return NextResponse.json({status : 'fail'});
+}

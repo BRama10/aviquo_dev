@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { mapDimensions } from '../../../utils'
-import type { PutBlobResult } from '@vercel/blob';
+import type { PutBlobResult, HeadBlobResult } from '@vercel/blob';
 import axios from 'axios'
 import { motion } from "framer-motion"
 import {CircularProgress} from "@nextui-org/react";
@@ -14,7 +14,7 @@ export interface EditProps {
     bio: string;
     num_followers: number;
     num_following: number;
-    image: PutBlobResult | null;
+    image: PutBlobResult | HeadBlobResult | null;
     handleUpload: () => void;
     handleDelete: () => void;
     handleCancel: () => void;
@@ -131,12 +131,12 @@ const Page: React.FC<EditProps> = ({
 
 
     return (
-        <motion.div initial={{ x: -2000 }} animate={{ x: 0 }} transition={{ duration: 2 }}>
+        <motion.div initial={{ x: -2000 }} animate={{ x: 0 }} transition={{ duration: 1 }}>
             <main id="wrapper" className={`min-h-screen h-full w-full bg-snow text-midnightblue font-poppins flex flex-col items-center`}>
                 <div className="bg-snow shadow-[0px_-10px_32px_rgba(0,_0,_0,_0.25)] w-full h-[8%] self-start" />
                 <div className="grid grid-cols-customC w-full h-full pt-[10%]">
                     <div className="flex flex-col items-center">
-                        { isLoading ? (<CircularProgress aria-label="Loading..." />) : (
+                        { isLoading ? (<CircularProgress color="secondary" aria-label="Loading..." />) : (
                         <img className="w-[15%] aspect-square object-cover rounded-full" alt="" src={blob ? blob.url : "https://vwrzsdm8t0uhsvhz.public.blob.vercel-storage.com/image-11@2x-kJ47GKgsfmMLUbeQDquWCR5h0tYKiq.png"} /> )}
                         <p className="text-2xl md:text-3xl font-bold pt-[2%]">@{username}</p>
                         <p className="text-xl md:text-2xl font-semibold pt-[0.5%]">{first_name}</p>
