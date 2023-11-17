@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from 'react'
 import { mapDimensions } from '../../../utils'
 import type { PutBlobResult } from '@vercel/blob';
 import axios from 'axios'
-import Loader from "react-loader-spinner"; 
+import { motion } from "framer-motion"
+import {CircularProgress} from "@nextui-org/react";
+
 
 export interface EditProps {
     username: string;
@@ -30,7 +32,7 @@ const Page: React.FC<EditProps> = ({
     handleCancel,
     handleDelete,
     handleSave,
-    handleUpload, 
+    handleUpload,
     image
 }) => {
     useEffect(() => {
@@ -83,19 +85,21 @@ const Page: React.FC<EditProps> = ({
 
     const handleAvatarButtonClick = () => {
         if (inputFileRef.current) {
-          inputFileRef.current.click();
+            inputFileRef.current.click();
         }
-      };
+    };
 
     const handleLocalAvatarChange = async () => {
         if (inputFileRef.current?.files) {
             const file = inputFileRef.current.files[0];
 
             if (file) {
+                setIsLoading(true)
                 const response = await axios.post(`/api/upload?filename=${file.name}`, file);
                 newBlob = response.data as PutBlobResult;
                 setBlob(newBlob);
-            } 
+                setIsLoading(false);
+            }
         }
     }
 
@@ -113,100 +117,101 @@ const Page: React.FC<EditProps> = ({
         }
         // console.log(userData);
         // const form = document.getElementById('avatarSelector') as HTMLFormElement | null;
-        
+
         // if (form) {
         //     form.dispatchEvent(new Event('submit', { cancelable: true }));
         // }
-        
-        
-        
+
+
+
         // console.log(blob);
-        
+
         handleSave({ ...userData, image: blob });
     }
 
 
     return (
-
-        <main id="wrapper" className={`min-h-screen h-full w-full bg-snow text-midnightblue font-poppins flex flex-col items-center`}>
-            <div className="bg-snow shadow-[0px_-10px_32px_rgba(0,_0,_0,_0.25)] w-full h-[8%] self-start" />
-            <div className="grid grid-cols-customC w-full h-full pt-[10%]">
-                <div className="flex flex-col items-center">
-                    <img className="w-[15%] aspect-square object-cover rounded-full" alt="" src={blob ? blob.url : "https://vwrzsdm8t0uhsvhz.public.blob.vercel-storage.com/image-11@2x-kJ47GKgsfmMLUbeQDquWCR5h0tYKiq.png"} />
-                    <p className="text-2xl md:text-3xl font-bold pt-[2%]">@{username}</p>
-                    <p className="text-xl md:text-2xl font-semibold pt-[0.5%]">{first_name}</p>
-                    <div className="pt-[2%] flex flex-row items-center justify-start gap-[10px] text-center text-darkslateblue-300 text-lg md:text-2xl font-weight:700">
-                        <div className="relative">
-                            <b>{num_followers}</b>
-                            <span> followers</span>
+        <motion.div initial={{ x: -2000 }} animate={{ x: 0 }} transition={{ duration: 2 }}>
+            <main id="wrapper" className={`min-h-screen h-full w-full bg-snow text-midnightblue font-poppins flex flex-col items-center`}>
+                <div className="bg-snow shadow-[0px_-10px_32px_rgba(0,_0,_0,_0.25)] w-full h-[8%] self-start" />
+                <div className="grid grid-cols-customC w-full h-full pt-[10%]">
+                    <div className="flex flex-col items-center">
+                        { isLoading ? (<CircularProgress aria-label="Loading..." />) : (
+                        <img className="w-[15%] aspect-square object-cover rounded-full" alt="" src={blob ? blob.url : "https://vwrzsdm8t0uhsvhz.public.blob.vercel-storage.com/image-11@2x-kJ47GKgsfmMLUbeQDquWCR5h0tYKiq.png"} /> )}
+                        <p className="text-2xl md:text-3xl font-bold pt-[2%]">@{username}</p>
+                        <p className="text-xl md:text-2xl font-semibold pt-[0.5%]">{first_name}</p>
+                        <div className="pt-[2%] flex flex-row items-center justify-start gap-[10px] text-center text-darkslateblue-300 text-lg md:text-2xl font-weight:700">
+                            <div className="relative">
+                                <b>{num_followers}</b>
+                                <span> followers</span>
+                            </div>
+                            <div className="relative rounded-[50%] bg-darkslateblue-300 w-2 h-2" />
+                            <div className="relative">
+                                <b>{num_following}</b>
+                                <span> following</span>
+                            </div>
                         </div>
-                        <div className="relative rounded-[50%] bg-darkslateblue-300 w-2 h-2" />
-                        <div className="relative">
-                            <b>{num_following}</b>
-                            <span> following</span>
-                        </div>
-                    </div>
-                    <button onClick={handleAvatarButtonClick} className="mt-[3%] rounded-3xs bg-darkslateblue-100 w-[350.48px] h-[55px] font-bold text-center text-white">
-                        Upload Avatar
-                    </button>
-                    <input 
-                        className="hidden"
-                        type="file"
-                    // onChange={setInput}
-                    ref={inputFileRef}
-                    onChange={handleLocalAvatarChange}></input>
-                    <button onClick={handleDeleteButtonClick} className="mt-[4%] rounded-3xs border-2 text-darkslateblue-100 w-[350.48px] h-[55px] font-bold text-center border-darkslateblue-100">
-                        Delete Avatar
-                    </button>
-                </div>
-                <div className="box-border w-px h-[90%] border-r-[1px] border-solid border-darkslateblue-200 self-center ml-[-140%]"></div>
-                <div className="flex flex-col items-start">
-                    <div className="pb-[3%] w-[90%]">
-                        <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">Username</div>
+                        <button onClick={handleAvatarButtonClick} className="mt-[3%] rounded-3xs bg-darkslateblue-100 w-[350.48px] h-[55px] font-bold text-center text-white">
+                            Upload Avatar
+                        </button>
                         <input
-  type="text"
-  value={localUsername}
-  onChange={handleUsernameChange}
-  className="text-xl pl-4 text-center rounded-3xs box-border w-full h-[3rem] border-[1px] border-solid border-darkslateblue-200 bg-inherit"
-/>
-
+                            className="hidden"
+                            type="file"
+                            // onChange={setInput}
+                            ref={inputFileRef}
+                            onChange={handleLocalAvatarChange}></input>
+                        <button onClick={handleDeleteButtonClick} className="mt-[4%] rounded-3xs border-2 text-darkslateblue-100 w-[350.48px] h-[55px] font-bold text-center border-darkslateblue-100">
+                            Delete Avatar
+                        </button>
                     </div>
-                    <div className="pb-[3%] w-[90%]">
-                        <div className="w-full h-full flex flex-row gap-x-5">
-                            <div className="w-1/2">
-                                <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">First Name</div>
-                                <input type="text" value={localFirstName} onChange={handleFirstNameChange} className="text-xl pl-4 text-center rounded-3xs box-border w-full h-[3rem] border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
-                            </div>  
-                            <div className="w-1/2">
-                                <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">Last Name</div>
-                                <input type="text" value={localLastName} onChange={handleLastNameChange} className="text-xl pl-4 text-center rounded-3xs box-border w-full h-[3rem] border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
+                    <div className="box-border w-px h-[90%] border-r-[1px] border-solid border-darkslateblue-200 self-center ml-[-140%]"></div>
+                    <div className="flex flex-col items-start">
+                        <div className="pb-[3%] w-[90%]">
+                            <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">Username</div>
+                            <input
+                                type="text"
+                                value={localUsername}
+                                onChange={handleUsernameChange}
+                                className="text-xl pl-4 rounded-3xs box-border w-full h-[3rem] border-[1px] border-solid border-darkslateblue-200 bg-inherit"
+                            />
+
+                        </div>
+                        <div className="pb-[3%] w-[90%]">
+                            <div className="w-full h-full flex flex-row gap-x-5">
+                                <div className="w-1/2">
+                                    <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">First Name</div>
+                                    <input type="text" value={localFirstName} onChange={handleFirstNameChange} className="text-xl pl-4 rounded-3xs box-border w-full h-[3rem] border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
+                                </div>
+                                <div className="w-1/2">
+                                    <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">Last Name</div>
+                                    <input type="text" value={localLastName} onChange={handleLastNameChange} className="text-xl pl-4 rounded-3xs box-border w-full h-[3rem] border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
+                                </div>
+                            </div>
+
+                        </div>
+                        {/* <div className="pb-[3%] w-[90%]">
+                        <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">Email</div>
+                        <input type="text" value={localEmail} onChange={handleEmailChange} className="text-3xl pl-4 rounded-3xs box-border w-full h-auto border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
+                    </div> */}
+                        <div className="pb-[3%] w-[90%]">
+                            <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">Bio</div>
+                            <textarea value={localBio} onChange={handleBioChange} rows={9} className="text-md pl-4 rounded-3xs box-border w-full h-auto border-[1px] border-solid border-darkslateblue-200 bg-inherit resize-none"></textarea>
+                        </div>
+
+                        <div className="pb-[3%] w-[90%] h-auto">
+                            <div className="w-full h-full flex flex-row gap-x-5">
+                                <button className="rounded-3xs bg-darkslateblue-100 w-1/4 h-full font-bold text-center text-white" onClick={handleLocalSave}>
+                                    Save
+                                </button>
+                                <button className="rounded-3xs border-2 text-darkslateblue-100 w-1/4 md:h-[50px] font-bold text-center border-darkslateblue-100" onClick={handleCancel}>
+                                    Cancel
+                                </button>
                             </div>
                         </div>
 
                     </div>
-                    {/* <div className="pb-[3%] w-[90%]">
-                        <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">Email</div>
-                        <input type="text" value={localEmail} onChange={handleEmailChange} className="text-3xl pl-4 rounded-3xs box-border w-full h-auto border-[1px] border-solid border-darkslateblue-200 bg-inherit"></input>
-                    </div> */}
-                    <div className="pb-[3%] w-[90%]">
-                        <div className="text-2xl font-medium text-darkslateblue-300 pb-[3%]">Bio</div>
-                        <textarea value={localBio} onChange={handleBioChange} rows={9} className="text-md pl-4 rounded-3xs box-border w-full h-auto border-[1px] border-solid border-darkslateblue-200 bg-inherit resize-none"></textarea>
-                    </div>
-
-                    <div className="pb-[3%] w-[90%] h-auto">
-                        <div className="w-full h-full flex flex-row gap-x-5">
-                            <button className="rounded-3xs bg-darkslateblue-100 w-1/4 h-full font-bold text-center text-white" onClick={handleLocalSave}>
-                                Save
-                            </button>
-                            <button className="rounded-3xs border-2 text-darkslateblue-100 w-1/4 md:h-[50px] font-bold text-center border-darkslateblue-100" onClick={handleCancel}>
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
-
                 </div>
-            </div>
-            {/* <form id='avatarSelector'
+                {/* <form id='avatarSelector'
                 className='none'
                 onSubmit={async (event) => {
                     event.preventDefault();
@@ -227,8 +232,9 @@ const Page: React.FC<EditProps> = ({
             >
                 <input name="file" ref={inputFileRef} type="file" required /> */}
                 {/* <button type="submit">Upload</button> */}
-            {/* </form> */}
-        </main>
+                {/* </form> */}
+            </main>
+        </motion.div>
     )
 };
 
