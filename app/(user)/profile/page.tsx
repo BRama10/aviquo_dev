@@ -1,8 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { mapDimensions } from '../../../utils'
-import Image from 'next/image'
+
 import Page, { ProfileProps } from './page_component';
 import EditView, { EditProps } from './edit_component';
 import styles from './profileStyles.module.css';
