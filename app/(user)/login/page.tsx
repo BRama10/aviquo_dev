@@ -15,22 +15,22 @@ const LoginPage = () => {
 
     return (
         <main id="wrapper" className={`min-h-screen h-full w-full font-poppins flex flex-col items-center justify-center bg-white`}>
-            <div className="justify-self-center flex flex-col w-[50%] pl-[10%]">
-                <div className="pt-[5%] text-5xl text-darkslateblue-100 font-semibold self-start">
+            <div className="justify-self-center flex flex-col w-[50%] justify-center items-center">
+                <div className="text-4xl text-darkslateblue-100 font-medium">
                     LOG IN
                 </div>
-                <div className="pt-[5%] w-[90%]">
-                    <div className="text-2xl text-darkslateblue-300 pb-[3%]">Username</div>
+                <div className="pt-[5%] w-[50%]">
+                    <div className="text-xl text-darkslateblue-300 pb-[3%]">Username</div>
                     <Input
                         //   label="Password"
                         variant="bordered"
                         placeholder="Enter your username"
 
-                        className="text-xl border-solid border-darkslateblue-200 bg-inherit"
+                        className="text-lg border-solid border-darkslateblue-200 bg-inherit"
                     />
                 </div>
-                <div className="pt-[10%] w-[90%]">
-                    <div className="text-2xl text-darkslateblue-300 pb-[3%]">Password</div>
+                <div className="pt-[5%] w-[50%]">
+                    <div className="text-xl text-darkslateblue-300 pb-[3%]">Password</div>
                     <Input
                         //   label="Password"
                         variant="bordered"
@@ -45,11 +45,12 @@ const LoginPage = () => {
                             </button>
                         }
                         type={isVisible ? "text" : "password"}
-                        className="text-xl border-solid border-darkslateblue-200 bg-inherit"
+                        className="text-lg border-solid border-darkslateblue-200 bg-inherit pb-[2%]"
                     />
+                    <a className="text-deepslateblue-300 underline self-start" href="#">Forgot Password</a>
                 </div>
-                <a className="text-deepslateblue-300 underline pt-[3%]" href="#">Forgot Password</a>
-                <Button size="lg" radius="md" className="w-[90%] mt-[5%] bg-darkslateblue-100 text-white text-2xl" > Log In </Button>
+                
+                <Button size="lg" radius="md" className="w-[50%] mt-[5%] bg-darkslateblue-100 text-white text-xl" > Log In </Button>
             </div>
         </main>
     );
