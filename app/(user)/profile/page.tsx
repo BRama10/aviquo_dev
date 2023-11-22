@@ -8,45 +8,51 @@ import styles from './profileStyles.module.css';
 import axios from 'axios';
 import type { HeadBlobResult, PutBlobResult } from '@vercel/blob';
 
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
+
 const ProfilePage = () => {
+    const { data: session, status } = useSession();
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const raw_response = await axios.get(`/api/user?email=test@test.com`);
-                const response = raw_response.data;
+        if (session) {
+            const fetchData = async () => {
+                try {
+                    const raw_response = await axios.get(`/api/user?email=test@test.com`);
+                    const response = raw_response.data;
 
 
 
-                let image: any = null;
+                    let image: any = null;
 
-                if (response.pfp) {
-                    const imageData = await axios.get(`/api/retrieve?filename=${response.pfp}`);
-                    image = imageData.data as HeadBlobResult;
+                    if (response.pfp) {
+                        const imageData = await axios.get(`/api/retrieve?filename=${response.pfp}`);
+                        image = imageData.data as HeadBlobResult;
+                    }
+
+                    const date = new Date(response.createdAt);
+                    const formattedDate = date.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+
+
+                    setData((prevState) => ({
+                        ...prevState,
+                        username: response.username,
+                        first_name: response.firstName,
+                        last_name: response.lastName,
+                        bio: response.bio,
+                        num_followers: response.numFollowers,
+                        num_following: response.numFollowing,
+                        date_joined: formattedDate,
+                        image: image
+                    }));
+                } catch (error) {
+                    console.error('Error fetching data:', error);
                 }
+            };
 
-                const date = new Date(response.createdAt);
-                const formattedDate = date.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-
-
-
-                setData((prevState) => ({
-                    ...prevState,
-                    username: response.username,
-                    first_name: response.firstName,
-                    last_name: response.lastName,
-                    bio: response.bio,
-                    num_followers: response.numFollowers,
-                    num_following: response.numFollowing,
-                    date_joined: formattedDate,
-                    image: image
-                }));
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
-        fetchData();
+            fetchData();
+        }
     }, []);
 
 
@@ -76,7 +82,7 @@ const ProfilePage = () => {
             const save = await axios.put(`/api/user?email=test@test.com`, {
                 pfp: obj.image ? obj.image.url : null,
                 firstName: obj.first_name,
-                lastName: obj.last_name, 
+                lastName: obj.last_name,
                 bio: obj.bio,
                 username: obj.username
             });
@@ -97,38 +103,43 @@ const ProfilePage = () => {
     });
 
 
-    const [isMain, setIsMain] = useState(true);
+    const [isMain, setIsMain] = useState<boolean | null>(true);
+    if (session) {
 
-    return (
-        <>
-            {isMain ? (<div className={`${styles.transition_slide}`}><Page
-                username={data.username}
-                first_name={data.first_name}
-                bio={data.bio}
-                num_followers={data.num_followers}
-                num_following={data.num_following}
-                date_joined={data.date_joined}
-                image={data.image}
-                handleEdit={data.handle_edit}
-            /></div>) : (
-                <div className={`${styles.transition_slide}`}><EditView
+        return (
+            <>
+                {isMain ? (<div className={`${styles.transition_slide}`}><Page
                     username={data.username}
                     first_name={data.first_name}
-                    last_name={data.last_name}
                     bio={data.bio}
                     num_followers={data.num_followers}
                     num_following={data.num_following}
+                    date_joined={data.date_joined}
                     image={data.image}
-                    // date_joined={data.date_joined}
-                    // handleEdit={data.handle_edit}
-                    handleCancel={data.handleCancel}
-                    handleUpload={data.handleUpload}
-                    handleSave={data.handleSave}
-                    handleDelete={data.handleDelete}
-                // email={data.email}
-                /></div>
-            )}
-        </>)
+                    handleEdit={data.handle_edit}
+                /></div>) : (
+                    <div className={`${styles.transition_slide}`}><EditView
+                        username={data.username}
+                        first_name={data.first_name}
+                        last_name={data.last_name}
+                        bio={data.bio}
+                        num_followers={data.num_followers}
+                        num_following={data.num_following}
+                        image={data.image}
+                        // date_joined={data.date_joined}
+                        // handleEdit={data.handle_edit}
+                        handleCancel={data.handleCancel}
+                        handleUpload={data.handleUpload}
+                        handleSave={data.handleSave}
+                        handleDelete={data.handleDelete}
+                    // email={data.email}
+                    /></div>
+                )}
+            </>)
+
+    } else {
+        redirect('/login')
+    }
 
     // return (
     //     <EditView />
