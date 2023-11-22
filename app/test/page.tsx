@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
 
 export default function ChildComponent() {
   const { data: session, status } = useSession();
-  console.log(session);
+  // console.log(session);
 
   return (
     <div>
