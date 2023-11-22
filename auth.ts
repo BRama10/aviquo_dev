@@ -55,6 +55,9 @@ export const config = {
     }),
   ],
   callbacks: {
+    // async session({ session, user }) {
+    //   // Send properties to the client, like an access_token from a provider.
+    // }
     // async signIn(user) {
     //   // Custom logic on successful sign-in
     //   // Redirect to a specific page
