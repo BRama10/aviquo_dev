@@ -10,10 +10,10 @@ export const SearchIcon = ({
     aria-hidden="true"
     fill="none"
     focusable="false"
-    height={height || size}
+    height={size}
     role="presentation"
     viewBox="0 0 24 24"
-    width={width || size}
+    width={size}
     // {...props}
   >
     <path
