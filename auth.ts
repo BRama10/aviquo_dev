@@ -24,6 +24,7 @@ export const config = {
   theme: {
     logo: "https://next-auth.js.org/img/logo/logo-sm.png",
   },
+  trustHost: true,
   providers: [
     CredentialsProvider({
       name: 'Credentials',
