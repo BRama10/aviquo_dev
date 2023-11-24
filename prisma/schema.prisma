@@ -24,15 +24,19 @@ model Post {
 // Represents a user of the aviquo platform
 //
 model User {
-  id        String   @id @default(cuid())
-  firstName String?  @map(name: "first_name")
-  lastName  String?  @map(name: "last_name")
-  email     String?  @unique
-  pfp       String?
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
-  posts     Post[]
-  Forum     Forum[]
+  id           String   @id @default(cuid())
+  firstName    String   @map(name: "first_name")
+  lastName     String   @map(name: "last_name")
+  password     String   
+  email        String   @unique
+  username     String   @unique
+  pfp          String?
+  bio          String?
+  numFollowers Int      @map(name: "num_followers")
+  numFollowing Int      @map(name: "num_following")
+  createdAt    DateTime @default(now()) @map(name: "date_joined")
+  posts        Post[]
+  // Forum        Forum[]
 
   @@map(name: "users")
 }
@@ -65,7 +69,7 @@ model Waitlist {
 }
 
 model Forum {
-  user        User     @relation(fields: [userId], references: [id])
+  // user        User     @relation(fields: [userId], references: [id])
   id          String   @id @default(cuid())
   topic       String   @unique @db.VarChar(300)
   description String? //max_length:1000

@@ -1,0 +1,14 @@
+.transition_container {
+    overflow: hidden;
+    height: auto;
+    transition: height 0.5s ease;
+}
+
+.transition_slide {
+    transform: translateX(0);
+    transition: transform 0.5s ease;
+}
+
+.transition_slide.hidden {
+    transform: translateX(100%);
+}
