@@ -65,40 +65,41 @@ const LoginPage = () => {
                         placeholder="Enter your username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className="text-lg border-solid border-darkslateblue-200 bg-inherit"
+                        className="text-lg border-solid border-darkslateblue-200 bg-inherit text-black"
                     />
                 </div>
                 <div className="pt-[5%] w-[50%]">
-                    <div className="text-xl text-darkslateblue-100 pb-[1.5%]">Password</div>
-                    <Input
-                        //   label="Password"
-                        variant="bordered"
-                        placeholder="Enter your password"
-                        endContent={
-                            <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
-                                {isVisible ? (
-                                    <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                                ) : (
-                                    <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                                )}
-                            </button>
-                        }
-                        type={isVisible ? "text" : "password"}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="text-lg border-solid border-darkslateblue-200 bg-inherit pb-[2%]"
-                    />
-                    <a className="text-deepslateblue-100 underline self-start" href="#">Forgot Password</a>
-                </div>
 
-                <form
-                    action={login}
-                    className='w-1/2'>
-                    <input className='hidden' name="route" value={route} />
-                    <input className='hidden' name="username" value={username} />
-                    <input className='hidden' name="password" value={password} />
-                    <Button type="submit" size="lg" radius="md" className="w-full mt-[5%] bg-darkslateblue-100 text-white text-xl" > Log In </Button>
-                </form>
+            <div className="text-xl text-darkslateblue-100 pb-[1.5%]">Password</div>
+            <Input
+                //   label="Password"
+                variant="bordered"
+                placeholder="Enter your password"
+                endContent={
+                    <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
+                        {isVisible ? (
+                            <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                        ) : (
+                            <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                        )}
+                    </button>
+                }
+                type={isVisible ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="text-lg border-solid border-darkslateblue-200 bg-inherit pb-[2%] text-black"
+            />
+            <a className="text-deepslateblue-100 underline self-start" href="#">Forgot Password</a>
+        </div>
+                
+        <form
+            action={login}
+        className='w-1/2'>
+            <input className='hidden' name="route" value={route} />
+            <input className='hidden' name="username" value={username} />
+            <input className='hidden' name="password" value={password} />
+            <Button type="submit" size="lg" radius="md" className="w-full mt-[5%] bg-darkslateblue-100 text-white text-xl" > Log In </Button>
+        </form>
             </div>
         </main>
     );

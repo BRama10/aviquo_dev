@@ -71,10 +71,10 @@ const SignupPage = () => {
                     <Input
                         //   label="Password"
                         variant="bordered"
-                        placeholder="Enter your username"
+                        placeholder="Enter your email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="text-lg border-solid border-darkslateblue-200 bg-inherit"
+                        className="text-lg border-solid border-darkslateblue-200 bg-inherit text-darkslateblue-200"
                     />
                 </div>
                 <div className="pt-[2%] w-[50%]">
@@ -85,7 +85,7 @@ const SignupPage = () => {
                         placeholder="Enter your username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className="text-lg border-solid border-darkslateblue-200 bg-inherit"
+                        className="text-lg border-solid border-darkslateblue-200 bg-inherit text-darkslateblue-200"
                     />
                 </div>
                 <div className="pt-[2%] w-[50%]">
@@ -106,7 +106,7 @@ const SignupPage = () => {
                             </button>
                         }
                         type={isVisible ? "text" : "password"}
-                        className="text-lg border-solid border-darkslateblue-200 bg-inherit pb-[2%]"
+                        className="text-lg border-solid border-darkslateblue-200 bg-inherit pb-[2%] text-darkslateblue-200"
                     />
                 </div>
                 <div className="pt-[2%] w-[50%]">
@@ -126,7 +126,7 @@ const SignupPage = () => {
                             </button>
                         }
                         type={isVisibleConfirm ? "text" : "password"}
-                        className="text-lg border-solid border-darkslateblue-200 bg-inherit pb-[2%]"
+                        className="text-lg border-solid border-darkslateblue-200 bg-inherit pb-[2%] text-darkslateblue-200"
                     />
                 </div>
                 
