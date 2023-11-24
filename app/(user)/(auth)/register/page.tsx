@@ -20,25 +20,26 @@ const SignupPage = () => {
                     SIGN UP
                 </div>
                 <div className="pt-[2%] w-[50%]">
-                    <div className="text-xl text-darkslateblue-100 pb-[1.5%]">Email</div>
-                    <Input
-                        //   label="Password"
-                        variant="bordered"
-                        placeholder="Enter your username"
-
-                        className="text-lg border-solid border-darkslateblue-200 bg-inherit"
-                    />
-                </div>
-                <div className="pt-[2%] w-[50%]">
                     <div className="text-xl text-darkslateblue-100 pb-[1.5%]">Username</div>
                     <Input
                         //   label="Password"
                         variant="bordered"
                         placeholder="Enter your username"
 
-                        className="text-lg border-solid border-darkslateblue-200 bg-inherit"
+                        className="text-lg border-solid border-darkslateblue-200 bg-inherit text-black"
                     />
                 </div>
+                <div className="pt-[2%] w-[50%]">
+                    <div className="text-xl text-darkslateblue-100 pb-[1.5%]">Email</div>
+                    <Input
+                        //   label="Password"
+                        variant="bordered"
+                        placeholder="Enter your email"
+
+                        className="text-lg border-solid border-darkslateblue-200 bg-inherit text-black"
+                    />
+                </div>
+                
                 <div className="pt-[2%] w-[50%]">
                     <div className="text-xl text-darkslateblue-100 pb-[1.5%]">Password</div>
                     <Input
@@ -55,7 +56,7 @@ const SignupPage = () => {
                             </button>
                         }
                         type={isVisible ? "text" : "password"}
-                        className="text-lg border-solid border-darkslateblue-200 bg-inherit pb-[2%]"
+                        className="text-lg border-solid border-darkslateblue-200 bg-inherit pb-[2%] text-black"
                     />
                 </div>
                 <div className="pt-[2%] w-[50%]">
@@ -74,7 +75,7 @@ const SignupPage = () => {
                             </button>
                         }
                         type={isVisible ? "text" : "password"}
-                        className="text-lg border-solid border-darkslateblue-200 bg-inherit pb-[2%]"
+                        className="text-lg border-solid border-darkslateblue-200 bg-inherit pb-[2%] text-black"
                     />
                 </div>
                 

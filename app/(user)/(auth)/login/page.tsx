@@ -38,7 +38,7 @@ const LoginPage = () => {
                         placeholder="Enter your username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className="text-lg border-solid border-darkslateblue-200 bg-inherit"
+                        className="text-lg border-solid border-darkslateblue-200 bg-inherit text-black"
                     />
                 </div>
                 <div className="pt-[5%] w-[50%]">
@@ -59,7 +59,7 @@ const LoginPage = () => {
                 type={isVisible ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="text-lg border-solid border-darkslateblue-200 bg-inherit pb-[2%]"
+                className="text-lg border-solid border-darkslateblue-200 bg-inherit pb-[2%] text-black"
             />
             <a className="text-deepslateblue-100 underline self-start" href="#">Forgot Password</a>
         </div>
