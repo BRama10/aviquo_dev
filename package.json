@@ -17,15 +17,16 @@
     "@prisma/client": "^5.6.0",
     "@vercel/blob": "^0.15.1",
     "axios": "^1.6.2",
+    "bcrypt": "^5.1.1",
     "fontawesome": "^5.6.3",
     "framer-motion": "^10.16.5",
-    "bcrypt": "^5.1.1",
-    "next-auth": "^5.0.0-beta.3",
-    "zod": "^3.22.4",
     "next": "14.0.2",
+    "next-auth": "^5.0.0-beta.3",
     "react": "^18",
     "react-dom": "^18",
-    "react-loader-spinner": "^5.4.5"
+    "react-hot-toast": "^2.4.1",
+    "react-loader-spinner": "^5.4.5",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20",
