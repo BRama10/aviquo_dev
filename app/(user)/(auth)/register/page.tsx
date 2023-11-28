@@ -8,6 +8,7 @@ import {Button} from "@nextui-org/react";
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
+import { Link } from "@nextui-org/react";
 
 
 
@@ -132,6 +133,16 @@ const SignupPage = () => {
                 
                 
                 <Button size="lg" radius="md" className="w-[50%] mt-[3%] bg-darkslateblue-100 text-white text-xl" onClick={handleSubmit}> Sign Up </Button>
+                <div className="pt-[1%]">
+                    <div className="flex justify-between items-center">
+                        <div className="pr-2 text-xl text-darkslateblue-100 pb-[1.5%]">
+                            Already have an account?
+                        </div>
+                        <Link href="/login" className="pl-2 text-xl text-darkslateblue-100 underline">
+                            Log In
+                        </Link>
+                    </div>
+                </div>
             </div>
         </main>
     );

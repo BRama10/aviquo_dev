@@ -10,6 +10,7 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { login } from "./authFunction";
 import { Button } from "@nextui-org/react";
 import toast, { Toaster } from 'react-hot-toast';
+import { Link } from "@nextui-org/react";
 
 
 const LoginPage = () => {
@@ -94,13 +95,23 @@ const LoginPage = () => {
                 
         <form
             action={login}
-        className='w-1/2'>
+            className='w-1/2'>
             <input className='hidden' name="route" value={route} />
             <input className='hidden' name="username" value={username} />
             <input className='hidden' name="password" value={password} />
             <Button type="submit" size="lg" radius="md" className="w-full mt-[5%] bg-darkslateblue-100 text-white text-xl" > Log In </Button>
         </form>
-            </div>
+           <div className="pt-[1%]">
+                    <div className="flex justify-between items-center">
+                        <div className="pr-2 text-xl text-darkslateblue-100 pb-[1.5%]">
+                            No Account?
+                        </div>
+                        <Link href="/register" className="pl-2 text-xl text-darkslateblue-100 underline">
+                            Sign Up
+                        </Link>
+                    </div>
+                </div>      
+        </div>
         </main>
     );
 
